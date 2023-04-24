@@ -14,7 +14,7 @@ class WallServiceTest {
     @Test
     fun add() {
         val service = WallService
-        val comment = Comment(1, canPost = true, groupsCanPost = false, canClose = true, canOpen = true)
+        val comments = Comments(1, canPost = true, groupsCanPost = false, canClose = true, canOpen = true)
         val repost = Repost(12, userReposted = true)
         val likes = Likes(12, userLikes = true, canLike = false, canPublish = true)
 
@@ -27,7 +27,7 @@ class WallServiceTest {
         attachments.addAll(listOf(photoAttachment, videoAttachment))
 
         val post = Post(1, 2, 3, 4, null, "Первый пост",
-            2, 1,  true, comment, "qwe", likes, repost, 12,
+            2, 1,  true, comments, "qwe", likes, repost, 12,
             "qwe", "asd","geo", attachments,15, "tyu", canPin = true,
             canDelete = true, canEdit = false, isPinned = false, markedAsAds = false, isFavorite = false,
             12)
@@ -35,12 +35,10 @@ class WallServiceTest {
         assertEquals(post, service.add(post))
     }
 
-
-
     @Test
     fun updateTrue() {
         val service = WallService
-        val comment = Comment(1, canPost = true, groupsCanPost = false, canClose = true, canOpen = true)
+        val comments = Comments(1, canPost = true, groupsCanPost = false, canClose = true, canOpen = true)
         val repost = Repost(12, userReposted = true)
         val likes = Likes(12, userLikes = true, canLike = false, canPublish = true)
 
@@ -65,25 +63,25 @@ class WallServiceTest {
 
 
         val postOne = Post(1, 2, 3, 4, null, "Первый пост",
-            2, 1,  true, comment, "qwe", likes, repost, 12,
+            2, 1,  true, comments, "qwe", likes, repost, 12,
             "qwe", "asd","geo", attachments1,15, "tyu", canPin = true,
             canDelete = true, canEdit = false, isPinned = false, markedAsAds = false, isFavorite = false,
             12)
 
         val postTwo = Post(1, 2, 3, 4, null, "Второй пост",
-            2, 1,  true, comment, "qwe", likes, repost, 12,
+            2, 1,  true, comments, "qwe", likes, repost, 12,
             "qwe", "asd","geo", attachments2,15, "tyu", canPin = true,
             canDelete = true, canEdit = false, isPinned = false, markedAsAds = false, isFavorite = false,
             12)
 
         val postThree = Post(1, 2, 3, 4, null, "Третий пост",
-            2, 1,  true, comment, "qwe", likes, repost, 12,
+            2, 1,  true, comments, "qwe", likes, repost, 12,
             "qwe", "asd","geo", attachments3,15, "tyu", canPin = true,
             canDelete = true, canEdit = false, isPinned = false, markedAsAds = false, isFavorite = false,
             12)
 
         val postUpdate = Post(1, 2, 3, 4, null, "Update пост",
-            2, 1,  true, comment, "qwe", likes, repost, 12,
+            2, 1,  true, comments, "qwe", likes, repost, 12,
             "qwe", "asd","geo", attachments3,15, "tyu", canPin = true,
             canDelete = true, canEdit = false, isPinned = false, markedAsAds = false, isFavorite = false,
             12)
@@ -98,7 +96,7 @@ class WallServiceTest {
     @Test
     fun updateFalse() {
         val service = WallService
-        val comment = Comment(1, canPost = true, groupsCanPost = false, canClose = true, canOpen = true)
+        val comments = Comments(1, canPost = true, groupsCanPost = false, canClose = true, canOpen = true)
         val repost = Repost(12, userReposted = true)
         val likes = Likes(12, userLikes = true, canLike = false, canPublish = true)
 
@@ -123,25 +121,25 @@ class WallServiceTest {
 
 
         val postOne = Post(1, 2, 3, 4, null, "Первый пост",
-            2, 1,  true, comment, "qwe", likes, repost, 12,
+            2, 1,  true, comments, "qwe", likes, repost, 12,
             "qwe", "asd","geo", attachments1,15, "tyu", canPin = true,
             canDelete = true, canEdit = false, isPinned = false, markedAsAds = false, isFavorite = false,
             12)
 
         val postTwo = Post(1, 2, 3, 4, null, "Второй пост",
-            2, 1,  true, comment, "qwe", likes, repost, 12,
+            2, 1,  true, comments, "qwe", likes, repost, 12,
             "qwe", "asd","geo", attachments2,15, "tyu", canPin = true,
             canDelete = true, canEdit = false, isPinned = false, markedAsAds = false, isFavorite = false,
             12)
 
         val postThree = Post(1, 2, 3, 4, null, "Третий пост",
-            2, 1,  true, comment, "qwe", likes, repost, 12,
+            2, 1,  true, comments, "qwe", likes, repost, 12,
             "qwe", "asd","geo", attachments3,15, "tyu", canPin = true,
             canDelete = true, canEdit = false, isPinned = false, markedAsAds = false, isFavorite = false,
             12)
 
         val postUpdate = Post(5, 2, 3, 4, null, "Update пост",
-            2, 1,  true, comment, "qwe", likes, repost, 12,
+            2, 1,  true, comments, "qwe", likes, repost, 12,
             "qwe", "asd","geo", attachments3,15, "tyu", canPin = true,
             canDelete = true, canEdit = false, isPinned = false, markedAsAds = false, isFavorite = false,
             12)
@@ -156,9 +154,10 @@ class WallServiceTest {
     @Test
     fun createComment() {
         val service = WallService
-        val comment = Comment(1, canPost = true, groupsCanPost = false, canClose = true, canOpen = true)
+        val comments = Comments(1, canPost = true, groupsCanPost = false, canClose = true, canOpen = true)
         val repost = Repost(12, userReposted = true)
         val likes = Likes(12, userLikes = true, canLike = false, canPublish = true)
+        val comment1 = Comment(1, 1, "qwe")
         val photo = Photo()
         val posted = Posted()
         val photoAttachment: Attachment = PhotoAttachment(photo)
@@ -167,31 +166,33 @@ class WallServiceTest {
         attachments1.addAll(listOf(photoAttachment, postedAttachment))
 
         val postOne = Post(1, 2, 3, 4, null, "Первый пост",
-            2, 1,  true, comment, "qwe", likes, repost, 12,
+            2, 1,  true, comments, "qwe", likes, repost, 12,
             "qwe", "asd","geo", attachments1,15, "tyu", canPin = true,
             canDelete = true, canEdit = false, isPinned = false, markedAsAds = false, isFavorite = false,
             12)
         service.add(postOne)
 
-        assertEquals(comment, service.createComment(1, comment))
+        assertEquals(comment1, service.createComment(1, comment1))
     }
 
 
     @Test
     fun shouldThrow() {
         val service = WallService
-        val comment = Comment(1, canPost = true, groupsCanPost = false, canClose = true, canOpen = true)
+        val comment1 = Comment(1, 1, "qwe")
         assertThrows(PostNotFoundException::class.java) {
-            service.createComment(2, comment)
+            service.createComment(2, comment1)
         }
     }
 
     @Test
     fun reportComment() {
         val service = WallService
-        val comment = Comment(1, canPost = true, groupsCanPost = false, canClose = true, canOpen = true)
+        val comments = Comments(1, canPost = true, groupsCanPost = false, canClose = true, canOpen = true)
         val repost = Repost(12, userReposted = true)
         val likes = Likes(12, userLikes = true, canLike = false, canPublish = true)
+        val comment1 = Comment(1, 1, "qwe")
+        val reportComment1 = ReportComment(1, 1, 1)
         val photo = Photo()
         val posted = Posted()
         val photoAttachment: Attachment = PhotoAttachment(photo)
@@ -200,23 +201,25 @@ class WallServiceTest {
         attachments1.addAll(listOf(photoAttachment, postedAttachment))
 
         val postOne = Post(1, 2, 3, 4, null, "Первый пост",
-            2, 1,  true, comment, "qwe", likes, repost, 12,
+            2, 1,  true, comments, "qwe", likes, repost, 12,
             "qwe", "asd","geo", attachments1,15, "tyu", canPin = true,
             canDelete = true, canEdit = false, isPinned = false, markedAsAds = false, isFavorite = false,
             12)
         service.add(postOne)
 
-        service.createComment(1, comment)
-        assertEquals(comment, service.reportComment(1, comment, 1))
+        service.createComment(1, comment1)
+        assertEquals(reportComment1, service.reportComment(1, reportComment1, 1))
     }
 
 
     @Test
     fun shouldThrowReportComment() {
         val service = WallService
-        val comment = Comment(1, canPost = true, groupsCanPost = false, canClose = true, canOpen = true)
+        val comments = Comments(1, canPost = true, groupsCanPost = false, canClose = true, canOpen = true)
         val repost = Repost(12, userReposted = true)
         val likes = Likes(12, userLikes = true, canLike = false, canPublish = true)
+        val comment1 = Comment(1, 1, "qwe")
+        val reportComment1 = ReportComment(1, 1, 1)
         val photo = Photo()
         val posted = Posted()
         val photoAttachment: Attachment = PhotoAttachment(photo)
@@ -224,15 +227,15 @@ class WallServiceTest {
         val attachments1: ArrayList<Attachment> = ArrayList()
         attachments1.addAll(listOf(photoAttachment, postedAttachment))
         val postOne = Post(1, 2, 3, 4, null, "Первый пост",
-            2, 1,  true, comment, "qwe", likes, repost, 12,
+            2, 1,  true, comments, "qwe", likes, repost, 12,
             "qwe", "asd","geo", attachments1,15, "tyu", canPin = true,
             canDelete = true, canEdit = false, isPinned = false, markedAsAds = false, isFavorite = false,
             12)
         service.add(postOne)
-        service.createComment(1, comment)
+        service.createComment(1, comment1)
 
         assertThrows(PostNotFoundException::class.java) {
-            service.reportComment(2, comment, 1)
+            service.reportComment(2, reportComment1, 1)
         }
     }
 }

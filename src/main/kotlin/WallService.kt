@@ -4,7 +4,7 @@ object WallService {
 
     private var posts = emptyArray<Post>()
     private var comments = emptyArray<Comment>()
-    private var reportComments = emptyArray<Comment>()
+    private var reportComments = emptyArray<ReportComment>()
 
     fun clear() {
         posts = emptyArray()
@@ -50,12 +50,12 @@ object WallService {
         throw  PostNotFoundException("Нет такого postId = $postId")
     }
 
-    fun reportComment(postId: Int, reportComment: Comment, reason: Int): Comment {
+    fun reportComment(postId: Int, reportComment: ReportComment, reason: Int): ReportComment {
         if (reason in 0..6 || reason == 8) {
             for (post in posts) {
-                if (postId == post.id) {
+                if (post.id == postId) {
                     for (comment in comments) {
-                        if (reportComment == comment) {
+                        if (comment.id == reportComment.commentId) {
                             reportComments += reportComment
                             return reportComments.last()
                         }
@@ -65,6 +65,6 @@ object WallService {
             }
             throw  PostNotFoundException("Нет такого postId = $postId")
         }
-        throw  PostNotFoundException("Нет такой жалобы = $reason")
+        throw  PostNotFoundException("Нет такой жалобы reason = $reason")
     }
 }
