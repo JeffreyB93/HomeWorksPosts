@@ -362,7 +362,8 @@ class WallServiceTest {
         val note2 = Note(2, "Заголовок_2", "Текст_2", mutableListOf(comment2))
         noteService.add(note1)
         noteService.add(note2)
-        assertEquals(mutableListOf(note1, note2), noteService.get(1, 2))
+        val noteList = listOf(note1, note2)
+        assertEquals(mutableListOf(note1, note2), noteService.get(1, 2,  list = noteList))
     }
 
     @Test

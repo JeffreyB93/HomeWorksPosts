@@ -38,7 +38,7 @@ object NoteService {
                 return note.comments.last()
             }
         }
-        throw NoteNotFoundException("Нет такого postId = $noteId")
+        throw NoteNotFoundException("Нет такого noteId = $noteId")
     }
 
     fun delete(noteId: Int): Int {
@@ -83,10 +83,8 @@ object NoteService {
             if (noteId == note.id) {
                 for (comment in note.comments) {
                     if (comment.id == commentId) {
-                        notes.remove(note)
                         note.comments.remove(comment)
                         note.comments += comment.copy(id = noteId, message = message)
-                        notes += note
                         return 1
                     }
                 }
@@ -95,22 +93,24 @@ object NoteService {
         throw  NoteNotFoundException("Нет такого comment")
     }
 
-    fun get(vararg noteIds: Int): Any {
-        if (noteIds.isNotEmpty()) {
-
-            val noteSet = mutableListOf<Note>()
-            for (noteId in noteIds) {
-                for (note in notes) {
-                    if (noteId == note.id) {
-                        noteSet.add(note)
+    fun <A>get(vararg noteIdArg: Int, list: List<A>): MutableList<A> {
+        val getList = mutableListOf<A>()
+        for (noteId in noteIdArg) {
+            for (a in list) {
+                if (a is Note) {
+                    if (noteId == a.id) {
+                        getList.add(a)
                     }
                 }
             }
-            return noteSet
-        } else return noteIds
+        }
+        if (getList.isNotEmpty()) {
+            return getList
+        }
+        throw  NoteNotFoundException("Нет такого note")
     }
 
-    fun getById(noteId: Int): Note {
+    fun getById(noteId: Int): Note{
         for (note in notes) {
             if (note.id == noteId) {
                 return note
