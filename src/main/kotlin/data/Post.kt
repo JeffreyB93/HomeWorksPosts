@@ -1,3 +1,7 @@
+package data
+
+import data.Repost
+
 data class Post(
     val id: Int,
     val ownerId: Int,

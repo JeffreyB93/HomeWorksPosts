@@ -1,4 +1,10 @@
-import PostNotFoundException as PostNotFoundException
+package service
+
+import data.Comment
+import data.Post
+import exception.PostNotFoundException
+import data.ReportComment
+
 
 object WallService {
 
@@ -8,14 +14,15 @@ object WallService {
 
     fun clear() {
         posts = emptyArray()
+        comments = emptyArray()
+        reportComments = emptyArray()
     }
 
     fun add(post: Post): Post {
         if (posts.isEmpty()) {
             posts += post.copy(id = 1)
             return posts.last()
-        }
-        else {
+        } else {
             var i = 1
             while (thereIs(posts.last().id + i)) i++
             posts += post.copy(id = posts.last().id + i)
