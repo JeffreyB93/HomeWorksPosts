@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
+import service.ChatService
 import service.NoteService
 import service.WallService
 import java.util.*
@@ -15,6 +16,7 @@ class WallServiceTest {
     fun clearBeforeTest() {
         WallService.clear()
         NoteService.clear()
+        ChatService.clear()
     }
 
     @Test
@@ -385,4 +387,63 @@ class WallServiceTest {
         noteService.add(note)
         assertEquals(mutableListOf(comment1, comment2), noteService.getComments(1))
     }
+
+    // Тест Chats
+    @Test
+    fun createMessage() {
+        val chatService =  ChatService
+        val message = chatService.createMessage(0, "Первое сообщение.")
+        assertEquals(message,  chatService.createMessage(0, "Первое сообщение."));
+    }
+
+    @Test
+    fun createChat() {
+        val chatService =  ChatService
+        val message = chatService.createMessage(0, "Первое сообщение.")
+        val chat = chatService.createChat(0, message)
+        assertEquals(Chat(0, mutableListOf(message)), chat)
+    }
+
+    @Test
+    fun getLastMessagesFromChat() {
+        val chatService =  ChatService
+        val message = chatService.createMessage(0, "Первое сообщение.")
+        chatService.createChat(0, message)
+        val lastMessages = chatService.getLastMessagesFromChat()
+        assertEquals(mutableListOf(message), lastMessages)
+    }
+
+    @Test
+    fun getByChatId() {
+        val chatService =  ChatService
+        val message = chatService.createMessage(0, "Первое сообщение.")
+        val chat = chatService.createChat(0, message)
+        val messages = chatService.getByChatId(0, 0)
+        assertEquals(mutableListOf(message), messages)
+    }
+
+    @Test
+    fun get() {
+        val chatService =  ChatService
+        val message = chatService.createMessage(0, "Первое сообщение.")
+        val chat = chatService.createChat(0, message)
+        assertEquals(chat, chatService.get(1))
+    }
+
+    @Test
+    fun deleteChat() {
+        val chatService =  ChatService
+        val message = chatService.createMessage(0, "Первое сообщение.")
+        val chat = chatService.createChat(0, message)
+        assertEquals(chat, chatService.deleteChat(0))
+    }
+
+    @Test
+    fun getAllChats() {
+        val chatService =  ChatService
+        val message = chatService.createMessage(0, "Первое сообщение.")
+        val chat = chatService.createChat(0, message)
+        assertEquals(mutableSetOf(chat), chatService.getAllChats())
+    }
+
 }
