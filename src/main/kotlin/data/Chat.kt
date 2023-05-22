@@ -8,6 +8,9 @@ data class Chat(
 data class Message(
     val id: Int,
     val text: String,
+<<<<<<< HEAD
     val outgoing: Boolean,
+=======
+>>>>>>> origin/main
     var read: Boolean
 )

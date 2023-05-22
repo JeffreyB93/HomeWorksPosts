@@ -11,8 +11,11 @@ object ChatService {
 
     fun clear() {
         chats = mutableSetOf<Chat>()
+<<<<<<< HEAD
         amountIdMessage = 0
 
+=======
+>>>>>>> origin/main
     }
 
     fun getUnreadChatsCount(): Int {
@@ -32,6 +35,7 @@ object ChatService {
         return chats
     }
 
+<<<<<<< HEAD
     fun getLastMessagesFromChat(): MutableList<String> {
         val lastMessages = mutableListOf<String>()
         if (chats.isNotEmpty()) chats.forEach {
@@ -41,6 +45,16 @@ object ChatService {
     }
 
     /*fun getByChatId(chatId: Int, messagesId: Int, amount: Int): MutableList<Message> {
+=======
+    fun getLastMessagesFromChat(): MutableList<Message> {
+        val lastMessages = mutableListOf<Message>()
+        chats.forEach { chat -> lastMessages.add(chat.messages.last()) }
+        if (lastMessages.isNotEmpty()) return lastMessages
+        throw  NoteNotFoundException("Нет сообщений.")
+    }
+
+    fun getByChatId(chatId: Int, messagesId: Int): MutableList<Message> {
+>>>>>>> origin/main
         val getMessages = mutableListOf<Message>()
         chats.forEach { chat: Chat ->
             if (chat.id == chatId) {
@@ -52,6 +66,7 @@ object ChatService {
                 }
             }
         }
+<<<<<<< HEAD
         if (getMessages.isNotEmpty()) {
             if (getMessages.size > amount) {
                 val getAmountMessages = mutableListOf<Message>()
@@ -99,12 +114,36 @@ object ChatService {
         chats.forEach {chat: Chat ->
             if (chat.id == idChat) {
                 throw NoteNotFoundException("Чат уже существует!")
+=======
+        if (getMessages.isNotEmpty()) return getMessages
+        throw  NoteNotFoundException("Нет сообщений.")
+    }
+
+    fun get(messagesLastId: Int): Chat {
+        chats.forEach { chat ->
+            if (chat.messages.last().id == messagesLastId) return chat
+        }
+        throw NoteNotFoundException("Нет сообщений.")
+    }
+
+    fun createMessage(id: Int, text: String): Message {
+        return Message(amountIdMessage + 1, text, false)
+
+    }
+
+    fun createChat(id: Int, newMessage: Message): Chat {
+        chats.forEach {chat: Chat ->
+            if (chat.id == id) {
+                chat.messages.add(newMessage)
+                return chat
+>>>>>>> origin/main
             }
         }
         chats.add(Chat(chats.size, mutableListOf(newMessage)))
         return chats.last()
     }
 
+<<<<<<< HEAD
     fun deleteMessage(idChat: Int, idMessage: Int): Message {
         chats.forEach {chat: Chat ->
             if (chat.id == idChat) {
@@ -119,6 +158,8 @@ object ChatService {
         }
         throw NoteNotFoundException("Такого чата нет!")
     }
+=======
+>>>>>>> origin/main
 
     fun deleteChat(id: Int): Chat {
         chats.forEach { chat: Chat ->
