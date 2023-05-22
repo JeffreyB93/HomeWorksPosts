@@ -1,10 +1,8 @@
 package service
 
 import data.Comment
-import data.Identifiable
 import data.Note
 import exception.NoteNotFoundException
-
 
 object NoteService {
 
@@ -95,12 +93,14 @@ object NoteService {
         throw  NoteNotFoundException("Нет такого comment")
     }
 
-    fun <A : Identifiable>get(vararg noteIdArg: Int, list: List<A>): MutableList<A> {
+    fun <A>get(vararg noteIdArg: Int, list: List<A>): MutableList<A> {
         val getList = mutableListOf<A>()
         for (noteId in noteIdArg) {
             for (a in list) {
-                if (noteId == a.id) {
-                    getList.add(a)
+                if (a is Note) {
+                    if (noteId == a.id) {
+                        getList.add(a)
+                    }
                 }
             }
         }
@@ -110,7 +110,7 @@ object NoteService {
         throw  NoteNotFoundException("Нет такого note")
     }
 
-    fun getById(noteId: Int): Note {
+    fun getById(noteId: Int): Note{
         for (note in notes) {
             if (note.id == noteId) {
                 return note
