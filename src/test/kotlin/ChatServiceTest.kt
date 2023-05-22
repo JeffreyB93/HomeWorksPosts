@@ -1,5 +1,4 @@
 import data.Chat
-import data.Message
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -27,7 +26,7 @@ class ChatServiceTest {
         val message1 = chatService.createMessage("Первое сообщение.", true)
         val addMessageInChat = chatService.addMessageInChat(0,  message1)
 
-        Assertions.assertEquals(true, addMessageInChat);
+        Assertions.assertEquals(chat, addMessageInChat);
     }
 
     @Test
@@ -52,7 +51,7 @@ class ChatServiceTest {
         val chatService =  ChatService
         val message = chatService.createMessage("Первое сообщение.", true)
         chatService.createChat(0, message)
-        val messages = chatService.getByChatId(0, 0, 1)
+        val messages = chatService.getByChatId(0, 0, 0)
         Assertions.assertEquals(mutableListOf(message), messages)
     }
 
